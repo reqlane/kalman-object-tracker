@@ -26,6 +26,7 @@ class KalmanFilter:
     def predict(self):
         self.state = np.dot(self.F, self.state)
         self.P = np.dot(np.dot(self.F, self.P), self.F.T) + self.Q
+
         return self.state[:2].flatten()  # [x, y]
 
     def update(self, z):

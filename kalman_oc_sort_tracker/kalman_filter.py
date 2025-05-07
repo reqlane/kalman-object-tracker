@@ -49,4 +49,5 @@ class KalmanFilter:
             w, h = 1.0, 1.0
         x = cx - w / 2
         y = cy - h / 2
+
         return [x, y, w, h]

@@ -11,6 +11,7 @@ class FrameDifferenceDetector:
 
         if self.prev_gray is None:
             self.prev_gray = gray
+
             return []
 
         frame_delta = cv2.absdiff(self.prev_gray, gray)
@@ -27,4 +28,5 @@ class FrameDifferenceDetector:
             bboxes.append((x, y, w, h))
 
         self.prev_gray = gray
+
         return bboxes
