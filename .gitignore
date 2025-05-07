@@ -69,3 +69,4 @@ cython_debug/
 .DS_Store
 Thumbs.db
 desktop.ini
+yolov8n.pt

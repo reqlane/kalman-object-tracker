@@ -1,16 +1,16 @@
 import cv2
 import os
 import time
-from detector import MotionDetector
+from detectors.frame_difference_detector import FrameDifferenceDetector
+from detectors.yolo_detector import YOLODetector
 from tracker import Tracker
 from utils.utils import preload_frames
 
 
-def play_from_video_file(frames):
+def play_from_video_file(frames, detector):
     window_name = "Tracking"
     cv2.namedWindow(window_name)
 
-    detector = MotionDetector()
     tracker = Tracker()
 
     frame_count = 0
@@ -42,7 +42,7 @@ def play_from_video_file(frames):
     print(f"Track IDs count during video: {tracker.next_id - 1}")
     cv2.destroyAllWindows()
 
-def play_from_camera():
+def play_from_camera(detector):
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
         print("Could not open camera.")
@@ -51,7 +51,6 @@ def play_from_camera():
     window_name = "Tracking"
     cv2.namedWindow(window_name)
 
-    detector = MotionDetector()
     tracker = Tracker()
 
     frame_count = 0
@@ -90,12 +89,27 @@ def play_from_camera():
 def main():
     print("----------")
     print("Kalman simple tracker")
+    print("Choose detector")
+    print("1 — Frame differencing detector")
+    print("2 — YOLO detector")
+    detector_choice = input("Enter 1/2: ")
+
+    detector = None
+    if detector_choice == "1":
+        detector = FrameDifferenceDetector()
+    elif detector_choice == "2":
+        detector = YOLODetector()
+    else:
+        print("Wrong input.")
+
+    print("----------")
+    print("Kalman simple tracker")
     print("1 — Camera")
     print("2 — Video file")
     choice = input("Enter 1/2: ")
 
     if choice == "1":
-        play_from_camera()
+        play_from_camera(detector)
     elif choice == "2":
         video_path = os.path.join("static", "vtest.avi")
         if not os.path.exists(video_path):
@@ -103,7 +117,7 @@ def main():
             return
         frames = preload_frames(video_path)
         if frames:
-            play_from_video_file(frames)
+            play_from_video_file(frames, detector)
     else:
         print("Wrong input.")
 

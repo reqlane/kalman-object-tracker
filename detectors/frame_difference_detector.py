@@ -1,6 +1,6 @@
 import cv2
 
-class MotionDetector:
+class FrameDifferenceDetector:
     def __init__(self, min_area=500):
         self.prev_gray = None
         self.min_area = min_area
