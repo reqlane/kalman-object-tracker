@@ -91,10 +91,9 @@ class OCTracker:
     #     self.tracks = [t for t in self.tracks if t.missed <= self.max_missed]
     #
     #     outputs = []
-    #     min_age = 3
     #
     #     for t in self.tracks:
-    #         if t.active and t.age >= min_age:
+    #         if t.active:
     #             x, y, w, h = t.get_state()
     #             outputs.append((int(x), int(y), int(w), int(h), t.id))
     #
