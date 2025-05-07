@@ -47,7 +47,7 @@ class OCTracker:
             self.tracks[trk_idx].update(detections[det_idx])
 
         for idx in unmatched_detections:
-            new_track = Track(self.next_id, detections[idx])
+            new_track = Track(None, detections[idx])
             self.tracks.append(new_track)
 
         for idx in unmatched_tracks:
@@ -69,3 +69,33 @@ class OCTracker:
                     outputs.append((int(x), int(y), int(w), int(h), t.id))
 
         return outputs
+
+    # def update(self, detections):
+    #     for track in self.tracks:
+    #         track.predict()
+    #
+    #     predicted_boxes = [track.get_state() for track in self.tracks]
+    #     matches, unmatched_detections, unmatched_tracks = associate(detections, predicted_boxes, self.iou_threshold)
+    #
+    #     for det_idx, trk_idx in matches:
+    #         self.tracks[trk_idx].update(detections[det_idx])
+    #
+    #     for idx in unmatched_detections:
+    #         new_track = Track(self.next_id, detections[idx])
+    #         self.tracks.append(new_track)
+    #         self.next_id += 1
+    #
+    #     for idx in unmatched_tracks:
+    #         self.tracks[idx].mark_missed()
+    #
+    #     self.tracks = [t for t in self.tracks if t.missed <= self.max_missed]
+    #
+    #     outputs = []
+    #     min_age = 3
+    #
+    #     for t in self.tracks:
+    #         if t.active and t.age >= min_age:
+    #             x, y, w, h = t.get_state()
+    #             outputs.append((int(x), int(y), int(w), int(h), t.id))
+    #
+    #     return outputs
