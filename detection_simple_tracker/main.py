@@ -70,7 +70,7 @@ def play_from_camera(detector):
         cv2.waitKey(1)
 
     avg_fps = frame_count / (time.time() - start_time)
-    print(f"Average FPS (video file): {avg_fps:.2f}")
+    print(f"Average FPS (camera): {avg_fps:.2f}")
     cap.release()
     cv2.destroyAllWindows()
 
@@ -86,7 +86,7 @@ def main():
     if detector_choice == "1":
         detector = FrameDifferenceDetector()
     elif detector_choice == "2":
-        detector = YOLODetector()
+        detector = YOLODetector(conf_threshold=0.4)
     else:
         print("Wrong input.")
 
