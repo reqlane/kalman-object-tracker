@@ -1,6 +1,6 @@
 import numpy as np
 from kalman_filter import KalmanFilter
-from utils import compute_iou
+from utils.utils import compute_iou
 
 class Track:
     def __init__(self, track_id, bbox):

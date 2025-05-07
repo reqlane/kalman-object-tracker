@@ -1,3 +1,6 @@
+import cv2
+
+
 def compute_iou(box_a, box_b):
     x_a = max(box_a[0], box_b[0])
     y_a = max(box_a[1], box_b[1])
@@ -17,3 +20,23 @@ def compute_iou(box_a, box_b):
         return 0.0
 
     return inter_area / union_area
+
+
+def preload_frames(video_path):
+    cap = cv2.VideoCapture(video_path)
+    frames = []
+
+    if not cap.isOpened():
+        print("Could not open video file.")
+        return []
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            break
+        frames.append(frame)
+
+    cap.release()
+    print(f"Loaded {len(frames)} frames.")
+
+    return frames

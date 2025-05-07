@@ -1,7 +1,7 @@
 import cv2
 
 class MotionDetector:
-    def __init__(self, min_area=1000):
+    def __init__(self, min_area=500):
         self.prev_gray = None
         self.min_area = min_area
 
