@@ -97,7 +97,7 @@ def main():
         detector = YOLODetector(conf_threshold=0.4)
     else:
         print("Wrong input.")
-    tracker = Tracker(max_missed=3, iou_threshold=0.3)
+    tracker = Tracker(max_missed=5, iou_threshold=0.3)
 
     print("----------")
     print("Kalman simple tracker")
