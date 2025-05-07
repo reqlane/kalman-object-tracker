@@ -29,10 +29,10 @@ class Track:
         self.age += 1
 
 class Tracker:
-    def __init__(self, max_age=30, iou_threshold=0.3):
+    def __init__(self, max_age=3, iou_threshold=0.3):
         self.tracks = []
         self.next_id = 1
-        self.max_age = max_age
+        self.max_missed = max_age
         self.iou_threshold = iou_threshold
 
     def update(self, detections):
@@ -54,7 +54,7 @@ class Tracker:
                 survived_tracks.append(track)
                 continue
             track.missed += 1
-            if track.missed <= self.max_age:
+            if track.missed <= self.max_missed:
                 survived_tracks.append(track)
         self.tracks = survived_tracks
 
