@@ -39,6 +39,13 @@ class KalmanFilter:
         self.X += np.dot(kg, y)
         self.P = np.dot(np.eye(7) - np.dot(kg, self.H), self.P)
 
+    def adjust(self, linear_estimate):
+        lx, ly, lw, lh = linear_estimate
+        delta = np.array([lx, ly, lw * lh, lw / lh], dtype=np.float32) - np.dot(self.H, self.X)
+        adjustment_gain = np.eye(4, dtype=np.float32) * 0.1
+        self.X[:4] += np.dot(adjustment_gain, delta)
+        self.P[:4, :4] += np.eye(4, dtype=np.float32) * 0.01
+
     def get_state(self):
         # [x, y, w, h]
         cx, cy, s, r = self.X[0], self.X[1], self.X[2], self.X[3]

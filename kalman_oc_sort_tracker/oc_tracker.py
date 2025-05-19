@@ -18,6 +18,7 @@ class Track:
     def update(self, bbox):
         self.kf.update(bbox)
         self.buffer.add(bbox)
+        self.kf.adjust(self.buffer.get_linear_estimate())
         self.age += 1
         self.missed = 0
         self.active = True
